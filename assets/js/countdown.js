@@ -5,9 +5,16 @@
     if (initialized) return;
     initialized = true;
 
-    const heroData = window.__EVENT_DATA__;
-    if (!heroData?.hero?.fecha_boda) return;
-const targetDate = new Date(heroData.hero.fecha_boda);
+    const data = window.__EVENT_DATA__;
+    if (!data?.hero) return;
+
+    // ✔ Compatible XV y BODA
+    const fecha =
+      data.hero.fecha_evento || data.hero.fecha_boda;
+
+    if (!fecha) return;
+
+    const targetDate = new Date(fecha);
     if (isNaN(targetDate)) return;
 
     const diasEl = document.getElementById("dias");

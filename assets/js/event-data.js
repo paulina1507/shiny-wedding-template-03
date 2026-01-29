@@ -84,9 +84,13 @@ fetch("./assets/js/evento.json")
     if (isEnabled(data.hero)) {
       const hero = data.hero;
 
-      document.getElementById(
-        "hero-names"
-      ).textContent = `${hero.names.novia} & ${hero.names.novio}`;
+      const heroNamesEl = document.getElementById("hero-names");
+
+      if (hero.names?.festejada) {
+        heroNamesEl.textContent = hero.names.festejada;
+      } else if (hero.names?.novia && hero.names?.novio) {
+        heroNamesEl.textContent = `${hero.names.novia} & ${hero.names.novio}`;
+      }
 
       document.querySelector(
         ".hero-bg"
@@ -112,19 +116,27 @@ fetch("./assets/js/evento.json")
       document.getElementById("nombres-presentacion").textContent = p.nombres;
       document.getElementById("frase-presentacion").textContent = p.frase;
 
-      document.getElementById("padres-novia").innerHTML =
-        p.padres?.novia?.join("<br>") || "";
-      document.getElementById("padres-novio").innerHTML =
-        p.padres?.novio?.join("<br>") || "";
-      document.getElementById("padrinos").innerHTML =
-        p.padrinos?.join("<br>") || "";
+      const padresNoviaEl = document.getElementById("padres-novia");
+      const padresNovioEl = document.getElementById("padres-novio");
 
-      document.getElementById("label-padres-novia").textContent =
-        p.labels?.padres_novia || "";
-      document.getElementById("label-padres-novio").textContent =
-        p.labels?.padres_novio || "";
-      document.getElementById("label-padrinos").textContent =
-        p.labels?.padrinos || "";
+      const labelPadresNoviaEl = document.getElementById("label-padres-novia");
+      const labelPadresNovioEl = document.getElementById("label-padres-novio");
+
+      /* ===== XV ===== */
+      if (p.padres?.festejada) {
+        padresNoviaEl.innerHTML = p.padres.festejada.join("<br>");
+        labelPadresNoviaEl.textContent = p.labels?.padres || "";
+
+        padresNovioEl?.closest(".arco-grupo")?.remove();
+      }
+      /* ===== BODA ===== */
+      else {
+        padresNoviaEl.innerHTML = p.padres?.novia?.join("<br>") || "";
+        padresNovioEl.innerHTML = p.padres?.novio?.join("<br>") || "";
+
+        labelPadresNoviaEl.textContent = p.labels?.padres_novia || "";
+        labelPadresNovioEl.textContent = p.labels?.padres_novio || "";
+      }
 
       document.getElementById("texto-final-presentacion").textContent =
         p.texto_final || "";
@@ -140,7 +152,17 @@ fetch("./assets/js/evento.json")
     if (isEnabled(data.ubicacion)) {
       const u = data.ubicacion;
       document.getElementById("ubicacion-titulo").textContent = u.titulo;
+      const fechaGeneralEl = document.getElementById("ubicacion-fecha-general");
 
+      if (fechaGeneralEl && data.hero?.fecha_evento) {
+        const fecha = new Date(data.hero.fecha_evento);
+        fechaGeneralEl.textContent = fecha.toLocaleDateString("es-MX", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+}
       const lista = document.getElementById("ubicacion-lista");
       lista.innerHTML = "";
 
@@ -258,49 +280,62 @@ fetch("./assets/js/evento.json")
 
     /* ================= RSVP ================= */
 
-    if (isEnabled(data.rsvp)) {
-      const rsvp = data.rsvp;
-      const form = document.getElementById("rsvp-form");
+if (isEnabled(data.rsvp)) {
+  const rsvp = data.rsvp;
+  const form = document.getElementById("rsvp-form");
 
-      if (form) {
-        form.querySelector(".arco-title").textContent = rsvp.titulo || "";
-        form.querySelector(".rsvp-text").innerHTML = rsvp.texto || "";
-        form.querySelector(".rsvp-note").innerHTML = rsvp.nota || "";
-        form.querySelector(".rsvp-btn.yes").textContent =
-          rsvp.botones?.si || "";
-        form.querySelector(".rsvp-btn.no").textContent = rsvp.botones?.no || "";
-      }
+  if (form) {
+    form.querySelector(".arco-title").textContent = rsvp.titulo || "";
+    form.querySelector(".rsvp-text").innerHTML = rsvp.texto || "";
+    form.querySelector(".rsvp-note").innerHTML = rsvp.nota || "";
+    form.querySelector(".rsvp-btn.yes").textContent =
+      rsvp.botones?.si || "";
+    form.querySelector(".rsvp-btn.no").textContent =
+      rsvp.botones?.no || "";
+  }
 
-      const passLabel = document.getElementById("rsvpPassLabel");
-      const passValue = document.getElementById("rsvpPassValue");
-      const tableLabel = document.getElementById("rsvpTableLabel");
-      const tableValue = document.getElementById("rsvpTableValue");
+  const passLabel = document.getElementById("rsvpPassLabel");
+  const passValue = document.getElementById("rsvpPassValue");
+  const tableLabel = document.getElementById("rsvpTableLabel");
+  const tableValue = document.getElementById("rsvpTableValue");
 
-      /* ===== PASE ===== */
-      if (rsvp.pase?.enabled !== false && passLabel && passValue) {
-        passLabel.textContent = rsvp.pase.label || "Pase para";
-        passValue.textContent = `${rsvp.pase.cantidad} personas`;
-      } else {
-        passLabel?.closest(".rsvp-pass-item")?.remove();
-      }
+  /* ===== PASE ===== */
+  if (rsvp.pase?.enabled !== false && passLabel && passValue) {
+    passLabel.textContent = rsvp.pase.label || "Pase para";
+    passValue.textContent = `${rsvp.pase.cantidad} personas`;
+  } else {
+    passLabel?.closest(".rsvp-pass-item")?.remove();
+  }
 
-      /* ===== MESA ===== */
-      if (rsvp.mesa?.enabled !== false && tableLabel && tableValue) {
-        tableLabel.textContent = rsvp.mesa.label || "Mesa asignada";
-        tableValue.textContent = `Mesa ${rsvp.mesa.numero}`;
-      } else {
-        tableLabel?.closest(".rsvp-pass-item")?.remove();
-      }
-      /* ===== LIMPIAR CONTENEDOR VACÍO ===== */
-      const passInfo = document.querySelector(".rsvp-pass-info");
+  /* ===== MESA ===== */
+  if (rsvp.mesa?.enabled !== false && tableLabel && tableValue) {
+    tableLabel.textContent = rsvp.mesa.label || "Mesa asignada";
+    tableValue.textContent = `Mesa ${rsvp.mesa.numero}`;
+  } else {
+    tableLabel?.closest(".rsvp-pass-item")?.remove();
+  }
 
-      if (passInfo && !rsvp.pase?.enabled && !rsvp.mesa?.enabled) {
-        passInfo.remove();
-      }
-    } else {
-      removeSection("rsvp");
-    }
+  const passInfo = document.querySelector(".rsvp-pass-info");
+  if (passInfo && !rsvp.pase?.enabled && !rsvp.mesa?.enabled) {
+    passInfo.remove();
+  }
 
+  /* ===== FINAL RSVP ===== */
+  const rsvpNames = document.getElementById("rsvp-names");
+  const rsvpFinalTitle = document.getElementById("rsvp-final-title");
+  const rsvpFinalText = document.getElementById("rsvp-final-text");
+
+  if (rsvp.final) {
+    if (rsvpFinalTitle)
+      rsvpFinalTitle.textContent = rsvp.final.titulo || "";
+    if (rsvpFinalText)
+      rsvpFinalText.textContent = rsvp.final.texto || "";
+    if (rsvpNames)
+      rsvpNames.textContent = rsvp.final.firma || "";
+  }
+} else {
+  removeSection("rsvp");
+}
     /* ================= FOOTER ================= */
 
     if (data.footer?.enabled !== false) {
