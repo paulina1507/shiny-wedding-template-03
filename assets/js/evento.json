@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "title": "Mis XV Años | Valeria",
+    "description": "Acompáñanos a celebrar mis XV años",
+    "lang": "es",
+    "favicon": "favicon.ico"
+  },
+
+  "logo": {
+    "type": "text",
+    "value": "Mis XV Años"
+  },
+
+  "audio": {
+    "enabled": true,
+    "src": "cancion.mp3",
+    "autoplay_on_open": true,
+    "loop": true,
+    "volume": 1,
+    "fade_in": true,
+    "icons": {
+      "play": "play.svg",
+      "pause": "pause.svg"
+    }
+  },
+
+  "opening": {
+    "enabled": true,
+    "phrase": {
+      "enabled": true,
+      "text": "Con mucha ilusión…",
+      "duration": 1400
+    },
+    "particles": {
+      "enabled": true,
+      "type": "sparkles",
+      "count": 14
+    },
+    "scroll_hint": {
+      "enabled": true,
+      "text": "Desliza para continuar"
+    }
+  },
+
+  "navbar": {
+    "enabled": true,
+    "logo": {
+      "use_global": true
+    },
+    "items": [
+      { "id": "inicio", "label": "Inicio", "href": "#inicio" },
+      { "id": "ubicacion", "label": "Lugar", "href": "#ubicacion" },
+      { "id": "programa", "label": "Programa", "href": "#programa" },
+      { "id": "regalos", "label": "Regalos", "href": "#regalos" },
+      { "id": "vestimenta", "label": "Vestimenta", "href": "#vestimenta" },
+      { "id": "galeria", "label": "Galería", "href": "#galeria" },
+      { "id": "rsvp", "label": "Asistencia", "href": "#rsvp" }
+    ]
+  },
+
+  "hero": {
+    "enabled": true,
+    "background": "xv.png",
+    "names": {
+      "festejada": "Valeria"
+    },
+    "fecha_evento": "2026-12-20T16:00:00",
+    "countdown_labels": {
+      "dias": "Días",
+      "horas": "Horas",
+      "minutos": "Minutos",
+      "segundos": "Segundos"
+    }
+  },
+
+  "presentacion": {
+    "enabled": true,
+    "titulo": "Tengo el honor de invitarte a celebrar mis XV años",
+    "nombres": "VALERIA",
+    "frase": "Con la bendición de Dios y en compañía de mis padres:",
+    "padres": {
+      "festejada": ["SARA ORTIZ HUERTA", "EMILIO HERNÁNDEZ FUENTES"]
+    },
+    "padrinos": ["AURELIA RIVERA NIETO", "BERNARDO ORTEGA ORTIZ"],
+    "texto_final": "Este día marca una nueva etapa en mi vida y me encantaría compartirlo contigo.",
+    "imagen": "xv.svg",
+    "labels": {
+      "padres": "Mis Padres",
+      "padrinos": "Mis Padrinos"
+    }
+  },
+
+  "ubicacion": {
+    "enabled": true,
+    "titulo": "Ubicación",
+    "lugares": [
+      {
+        "enabled": true,
+        "tipo": "Ceremonia Religiosa",
+        "hora": "16:00 HRS",
+        "lugar": "Parroquia San José",
+        "direccion": ["Av. Principal 123", "Centro Histórico", "C.P. 62000"],
+        "mapa": "https://maps.google.com"
+      },
+      {
+        "enabled": true,
+        "tipo": "Fiesta",
+        "hora": "18:00 HRS",
+        "lugar": "Salón La Concordia",
+        "direccion": [
+          "Avenida Paseo de las Fuentes 46",
+          "Col. San Gaspar, Jiutepec Morelos",
+          "C.P. 62534"
+        ],
+        "mapa": "https://maps.google.com"
+      }
+    ]
+  },
+
+  "programa": {
+    "enabled": true,
+    "titulo": "Programa del Evento",
+    "progress_steps": [25, 50, 75, 100],
+    "items": [
+      {
+        "hora": "16:00 hrs",
+        "texto": "Ceremonia Religiosa",
+        "icono": "5.svg",
+        "lado": "left"
+      },
+      {
+        "hora": "18:00 hrs",
+        "texto": "Recepción",
+        "icono": "6.svg",
+        "lado": "right"
+      },
+      {
+        "hora": "18:30 hrs",
+        "texto": "Vals",
+        "icono": "7.svg",
+        "lado": "left"
+      },
+      {
+        "hora": "20:00 hrs",
+        "texto": "Baile y diversión",
+        "icono": "8.svg",
+        "lado": "right"
+      }
+    ]
+  },
+
+  "vestimenta": {
+    "enabled": true,
+    "titulo": "Código de Vestimenta",
+    "icono": "9.svg",
+    "formal": "FORMAL",
+    "labels": {
+      "mujeres": "Mujeres",
+      "hombres": "Hombres"
+    },
+    "mujeres": "Evitar vestir del color del vestido de la festejada.",
+    "hombres": "Camisa formal o traje."
+  },
+
+  "regalos": {
+    "enabled": true,
+    "titulo": "Sugerencia de Regalos",
+    "descripcion": "Tu presencia es el mejor regalo.<br>Si deseas obsequiarme algo, habrá una mesa de regalos en la fiesta.",
+    "items": [
+      { "icono": "10.svg", "label": "Lluvia de Sobres" },
+      { "icono": "11.svg", "label": "Regalo Sorpresa" }
+    ]
+  },
+
+  "galeria": {
+    "enabled": true,
+    "titulo": "Galería",
+    "imagenes": [
+      "gallery1.png",
+      "gallery2.png",
+      "gallery3.png",
+      "gallery4.png",
+      "gallery5.png"
+    ]
+  },
+
+  "rsvp": {
+    "enabled": true,
+    "titulo": "Confirmar asistencia",
+    "texto": "Me encantaría saber si podrás acompañarme en este día tan especial.",
+    "nota": "Por favor confirma tu asistencia.",
+
+    "pase": {
+      "enabled": false,
+      "cantidad": null,
+      "label": ""
+    },
+
+    "mesa": {
+      "enabled": false,
+      "numero": null,
+      "label": ""
+    },
+
+    "botones": {
+      "si": "Sí, asistiré",
+      "no": "No podré asistir"
+    },
+
+    "final": {
+      "titulo": "¡Gracias por confirmar!",
+      "texto": "Será un honor compartir este día contigo.",
+      "firma": "Valeria"
+    }
+  },
+  "editorial": {
+    "hero": {
+      "enabled": true,
+      "text": "Hoy celebro una nueva etapa en mi vida"
+    },
+    "presentacion": {
+      "enabled": true,
+      "text": "Gracias a quienes me han acompañado siempre"
+    },
+    "ubicacion": {
+      "enabled": true,
+      "text": "El lugar donde todo sucederá"
+    },
+    "programa": {
+      "enabled": true,
+      "text": "Cada momento tiene su magia"
+    },
+    "vestimenta": {
+      "enabled": true,
+      "text": "Una noche para brillar"
+    },
+    "regalos": {
+      "enabled": true,
+      "text": "Tu compañía es lo más importante"
+    },
+    "galeria": {
+      "enabled": true,
+      "text": "Momentos que forman mi historia"
+    },
+    "rsvp": {
+      "enabled": true,
+      "text": "Tu presencia es muy importante para mí"
+    }
+  },
+
+  "footer": {
+    "enabled": true,
+    "text": "Diseñado con amor por Shiny Maker Events"
+  }
+}
