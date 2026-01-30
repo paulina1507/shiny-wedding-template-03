@@ -1,6 +1,11 @@
 fetch("./assets/js/evento.json")
   .then((res) => res.json())
   .then((data) => {
+    /* ================= GLOBAL (PRIMERO SIEMPRE) ================= */
+
+    // 🔑 Exponer el JSON ANTES de cualquier uso
+    window.__EVENT_DATA__ = data;
+
     /* ================= 🔧 HELPERS ================= */
 
     const isEnabled = (obj) => obj?.enabled !== false;
@@ -8,6 +13,20 @@ fetch("./assets/js/evento.json")
     const removeSection = (id) => {
       const el = document.getElementById(id);
       if (el) el.remove();
+    };
+
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el && value !== undefined && value !== null) {
+        el.textContent = value;
+      }
+    };
+
+    const setHTML = (id, value) => {
+      const el = document.getElementById(id);
+      if (el && value !== undefined && value !== null) {
+        el.innerHTML = value;
+      }
     };
 
     /* ================= META ================= */
@@ -74,7 +93,7 @@ fetch("./assets/js/evento.json")
 
         navMenu.insertAdjacentHTML(
           "beforeend",
-          `<li><a href="${item.href}">${item.label}</a></li>`
+          `<li><a href="${item.href}">${item.label}</a></li>`,
         );
       });
     }
@@ -92,16 +111,17 @@ fetch("./assets/js/evento.json")
         heroNamesEl.textContent = `${hero.names.novia} & ${hero.names.novio}`;
       }
 
-      document.querySelector(
-        ".hero-bg"
-      ).style.backgroundImage = `url('assets/img/${hero.background}')`;
+      const heroBg = document.querySelector(".hero-bg");
+      if (heroBg && hero.background) {
+        heroBg.style.backgroundImage = `url('assets/img/${hero.background}')`;
+      }
 
       const labels = hero.countdown_labels;
       if (labels) {
-        document.getElementById("label-dias").textContent = labels.dias;
-        document.getElementById("label-horas").textContent = labels.horas;
-        document.getElementById("label-minutos").textContent = labels.minutos;
-        document.getElementById("label-segundos").textContent = labels.segundos;
+        setText("label-dias", labels.dias);
+        setText("label-horas", labels.horas);
+        setText("label-minutos", labels.minutos);
+        setText("label-segundos", labels.segundos || "Segundos");
       }
     } else {
       removeSection("inicio");
@@ -112,9 +132,9 @@ fetch("./assets/js/evento.json")
     if (isEnabled(data.presentacion)) {
       const p = data.presentacion;
 
-      document.getElementById("titulo-presentacion").textContent = p.titulo;
-      document.getElementById("nombres-presentacion").textContent = p.nombres;
-      document.getElementById("frase-presentacion").textContent = p.frase;
+      setText("titulo-presentacion", p.titulo);
+      setText("nombres-presentacion", p.nombres);
+      setText("frase-presentacion", p.frase);
 
       const padresNoviaEl = document.getElementById("padres-novia");
       const padresNovioEl = document.getElementById("padres-novio");
@@ -124,22 +144,25 @@ fetch("./assets/js/evento.json")
 
       /* ===== XV ===== */
       if (p.padres?.festejada) {
-        padresNoviaEl.innerHTML = p.padres.festejada.join("<br>");
-        labelPadresNoviaEl.textContent = p.labels?.padres || "";
+        setHTML("padres-novia", p.padres.festejada.join("<br>"));
+        setText("label-padres-novia", p.labels?.padres || "Mis Padres");
 
         padresNovioEl?.closest(".arco-grupo")?.remove();
-      }
-      /* ===== BODA ===== */
-      else {
-        padresNoviaEl.innerHTML = p.padres?.novia?.join("<br>") || "";
-        padresNovioEl.innerHTML = p.padres?.novio?.join("<br>") || "";
 
-        labelPadresNoviaEl.textContent = p.labels?.padres_novia || "";
-        labelPadresNovioEl.textContent = p.labels?.padres_novio || "";
+        if (p.padrinos?.length) {
+          setHTML("padrinos", p.padrinos.join("<br>"));
+          setText("label-padrinos", p.labels?.padrinos || "Mis Padrinos");
+        }
+      } else {
+        /* ===== BODA ===== */
+        setHTML("padres-novia", p.padres?.novia?.join("<br>") || "");
+        setHTML("padres-novio", p.padres?.novio?.join("<br>") || "");
+
+        setText("label-padres-novia", p.labels?.padres_novia || "");
+        setText("label-padres-novio", p.labels?.padres_novio || "");
       }
 
-      document.getElementById("texto-final-presentacion").textContent =
-        p.texto_final || "";
+      setText("texto-final-presentacion", p.texto_final || "");
 
       const img = document.querySelector(".arco-img img");
       if (img && p.imagen) img.src = `assets/img/${p.imagen}`;
@@ -151,18 +174,31 @@ fetch("./assets/js/evento.json")
 
     if (isEnabled(data.ubicacion)) {
       const u = data.ubicacion;
-      document.getElementById("ubicacion-titulo").textContent = u.titulo;
+      setText("ubicacion-titulo", u.titulo);
+
       const fechaGeneralEl = document.getElementById("ubicacion-fecha-general");
 
       if (fechaGeneralEl && data.hero?.fecha_evento) {
         const fecha = new Date(data.hero.fecha_evento);
-        fechaGeneralEl.textContent = fecha.toLocaleDateString("es-MX", {
+
+        const dia = fecha.toLocaleDateString("es-MX", {
           weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
         });
-}
+
+        const fechaBonita = fecha.toLocaleDateString("es-MX", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+
+        fechaGeneralEl.innerHTML = `
+          <div class="fecha-wrapper">
+            <span class="fecha-dia">${dia}</span>
+            <span class="fecha-completa">${fechaBonita}</span>
+          </div>
+        `;
+      }
+
       const lista = document.getElementById("ubicacion-lista");
       lista.innerHTML = "";
 
@@ -179,7 +215,7 @@ fetch("./assets/js/evento.json")
               ${
                 lugar.direccion?.length
                   ? `<div class="ubicacion-direccion">${lugar.direccion.join(
-                      "<br>"
+                      "<br>",
                     )}</div>`
                   : ""
               }
@@ -189,7 +225,7 @@ fetch("./assets/js/evento.json")
                   : ""
               }
             </div>
-          `
+          `,
           );
         });
     } else {
@@ -200,21 +236,23 @@ fetch("./assets/js/evento.json")
 
     if (isEnabled(data.programa)) {
       const programa = data.programa;
-      document.getElementById("programa-titulo").textContent = programa.titulo;
+      setText("programa-titulo", programa.titulo);
 
       const timeline = document.getElementById("timeline-programa");
       timeline.innerHTML = "";
 
-      programa.items.forEach((item) => {
+      programa.items.forEach((item, index) => {
+        const lado = index % 2 === 0 ? "left" : "right";
+
         timeline.insertAdjacentHTML(
           "beforeend",
           `
-          <div class="item ${item.lado} reveal">
+          <div class="item ${lado} reveal">
             <img class="icon" src="assets/img/${item.icono}">
             <div class="hora">${item.hora}</div>
             <div class="texto">${item.texto}</div>
           </div>
-        `
+        `,
         );
       });
     } else {
@@ -225,11 +263,14 @@ fetch("./assets/js/evento.json")
 
     if (isEnabled(data.vestimenta)) {
       const v = data.vestimenta;
-      document.getElementById("vestimenta-titulo").textContent = v.titulo;
-      document.getElementById("vestimenta-icon").src = `assets/img/${v.icono}`;
-      document.getElementById("vestimenta-formal").textContent = v.formal;
-      document.getElementById("vestimenta-mujeres").innerHTML = v.mujeres;
-      document.getElementById("vestimenta-hombres").innerHTML = v.hombres;
+      setText("vestimenta-titulo", v.titulo);
+
+      const icon = document.getElementById("vestimenta-icon");
+      if (icon && v.icono) icon.src = `assets/img/${v.icono}`;
+
+      setText("vestimenta-formal", v.formal);
+      setHTML("vestimenta-mujeres", v.mujeres);
+      setHTML("vestimenta-hombres", v.hombres);
     } else {
       removeSection("vestimenta");
     }
@@ -238,8 +279,8 @@ fetch("./assets/js/evento.json")
 
     if (isEnabled(data.regalos)) {
       const r = data.regalos;
-      document.getElementById("regalos-titulo").textContent = r.titulo;
-      document.querySelector(".regalos-desc").innerHTML = r.descripcion;
+      setText("regalos-titulo", r.titulo);
+      setHTML("regalos-desc", r.descripcion);
 
       const cont = document.getElementById("regalos-inner");
       cont.innerHTML = "";
@@ -252,7 +293,7 @@ fetch("./assets/js/evento.json")
             <img src="assets/img/${item.icono}" class="regalo-icon">
             <p class="regalo-label">${item.label}</p>
           </div>
-        `
+        `,
         );
       });
     } else {
@@ -263,7 +304,7 @@ fetch("./assets/js/evento.json")
 
     if (isEnabled(data.galeria)) {
       const g = data.galeria;
-      document.getElementById("galeria-titulo").textContent = g.titulo;
+      setText("galeria-titulo", g.titulo);
 
       const track = document.getElementById("carousel-track");
       track.innerHTML = "";
@@ -271,7 +312,7 @@ fetch("./assets/js/evento.json")
       g.imagenes.forEach((img) => {
         track.insertAdjacentHTML(
           "beforeend",
-          `<img src="assets/img/${img}" class="carousel-img">`
+          `<img src="assets/img/${img}" class="carousel-img">`,
         );
       });
     } else {
@@ -280,62 +321,57 @@ fetch("./assets/js/evento.json")
 
     /* ================= RSVP ================= */
 
-if (isEnabled(data.rsvp)) {
-  const rsvp = data.rsvp;
-  const form = document.getElementById("rsvp-form");
+    if (isEnabled(data.rsvp)) {
+      const rsvp = data.rsvp;
+      const form = document.getElementById("rsvp-form");
 
-  if (form) {
-    form.querySelector(".arco-title").textContent = rsvp.titulo || "";
-    form.querySelector(".rsvp-text").innerHTML = rsvp.texto || "";
-    form.querySelector(".rsvp-note").innerHTML = rsvp.nota || "";
-    form.querySelector(".rsvp-btn.yes").textContent =
-      rsvp.botones?.si || "";
-    form.querySelector(".rsvp-btn.no").textContent =
-      rsvp.botones?.no || "";
-  }
+      if (form) {
+        setText("rsvp-form-title", rsvp.titulo || "");
+        form.querySelector(".rsvp-text").innerHTML = rsvp.texto || "";
+        form.querySelector(".rsvp-note").innerHTML = rsvp.nota || "";
+        form.querySelector(".rsvp-btn.yes").textContent =
+          rsvp.botones?.si || "";
+        form.querySelector(".rsvp-btn.no").textContent = rsvp.botones?.no || "";
+      }
 
-  const passLabel = document.getElementById("rsvpPassLabel");
-  const passValue = document.getElementById("rsvpPassValue");
-  const tableLabel = document.getElementById("rsvpTableLabel");
-  const tableValue = document.getElementById("rsvpTableValue");
+      const passLabel = document.getElementById("rsvpPassLabel");
+      const passValue = document.getElementById("rsvpPassValue");
+      const tableLabel = document.getElementById("rsvpTableLabel");
+      const tableValue = document.getElementById("rsvpTableValue");
 
-  /* ===== PASE ===== */
-  if (rsvp.pase?.enabled !== false && passLabel && passValue) {
-    passLabel.textContent = rsvp.pase.label || "Pase para";
-    passValue.textContent = `${rsvp.pase.cantidad} personas`;
-  } else {
-    passLabel?.closest(".rsvp-pass-item")?.remove();
-  }
+      if (rsvp.pase?.enabled !== false && passLabel && passValue) {
+        passLabel.textContent = rsvp.pase.label || "Pase para";
+        passValue.textContent = `${rsvp.pase.cantidad} personas`;
+      } else {
+        passLabel?.closest(".rsvp-pass-item")?.remove();
+      }
 
-  /* ===== MESA ===== */
-  if (rsvp.mesa?.enabled !== false && tableLabel && tableValue) {
-    tableLabel.textContent = rsvp.mesa.label || "Mesa asignada";
-    tableValue.textContent = `Mesa ${rsvp.mesa.numero}`;
-  } else {
-    tableLabel?.closest(".rsvp-pass-item")?.remove();
-  }
+      if (rsvp.mesa?.enabled !== false && tableLabel && tableValue) {
+        tableLabel.textContent = rsvp.mesa.label || "Mesa asignada";
+        tableValue.textContent = `Mesa ${rsvp.mesa.numero}`;
+      } else {
+        tableLabel?.closest(".rsvp-pass-item")?.remove();
+      }
 
-  const passInfo = document.querySelector(".rsvp-pass-info");
-  if (passInfo && !rsvp.pase?.enabled && !rsvp.mesa?.enabled) {
-    passInfo.remove();
-  }
+      const passInfo = document.querySelector(".rsvp-pass-info");
+      if (passInfo && !rsvp.pase?.enabled && !rsvp.mesa?.enabled) {
+        passInfo.remove();
+      }
 
-  /* ===== FINAL RSVP ===== */
-  const rsvpNames = document.getElementById("rsvp-names");
-  const rsvpFinalTitle = document.getElementById("rsvp-final-title");
-  const rsvpFinalText = document.getElementById("rsvp-final-text");
+      const rsvpNames = document.getElementById("rsvp-names");
+      const rsvpFinalTitle = document.getElementById("rsvp-final-title");
+      const rsvpFinalText = document.getElementById("rsvp-final-text");
 
-  if (rsvp.final) {
-    if (rsvpFinalTitle)
-      rsvpFinalTitle.textContent = rsvp.final.titulo || "";
-    if (rsvpFinalText)
-      rsvpFinalText.textContent = rsvp.final.texto || "";
-    if (rsvpNames)
-      rsvpNames.textContent = rsvp.final.firma || "";
-  }
-} else {
-  removeSection("rsvp");
-}
+      if (rsvp.final) {
+        if (rsvpFinalTitle)
+          rsvpFinalTitle.textContent = rsvp.final.titulo || "";
+        if (rsvpFinalText) rsvpFinalText.textContent = rsvp.final.texto || "";
+        if (rsvpNames) rsvpNames.textContent = rsvp.final.firma || "";
+      }
+    } else {
+      removeSection("rsvp");
+    }
+
     /* ================= FOOTER ================= */
 
     if (data.footer?.enabled !== false) {
@@ -349,9 +385,8 @@ if (isEnabled(data.rsvp)) {
 
     applyEditorialTexts(data.editorial);
 
-    /* ================= GLOBAL ================= */
+    /* ================= EVENT READY ================= */
 
-    window.__EVENT_DATA__ = data;
     document.dispatchEvent(new Event("event:data:ready"));
   })
   .catch((err) => {
@@ -381,7 +416,7 @@ function applyEditorialTexts(editorial) {
           observer.disconnect();
         }
       },
-      { threshold: 0.6 }
+      { threshold: 0.6 },
     );
 
     observer.observe(el);

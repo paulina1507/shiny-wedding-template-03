@@ -60,9 +60,9 @@
 
   "hero": {
     "enabled": true,
-    "background": "xv.png",
+    "background": "quinceañera.png",
     "names": {
-      "festejada": "Valeria"
+      "festejada": "XV Valeria"
     },
     "fecha_evento": "2026-12-20T16:00:00",
     "countdown_labels": {
@@ -83,7 +83,7 @@
     },
     "padrinos": ["AURELIA RIVERA NIETO", "BERNARDO ORTEGA ORTIZ"],
     "texto_final": "Este día marca una nueva etapa en mi vida y me encantaría compartirlo contigo.",
-    "imagen": "xv.svg",
+    "imagen": "princesa.svg",
     "labels": {
       "padres": "Mis Padres",
       "padrinos": "Mis Padrinos"
@@ -120,7 +120,7 @@
   "programa": {
     "enabled": true,
     "titulo": "Programa del Evento",
-    "progress_steps": [25, 50, 75, 100],
+    "progress_steps": [20,40,60,80,100],
     "items": [
       {
         "hora": "16:00 hrs",
@@ -135,16 +135,28 @@
         "lado": "right"
       },
       {
-        "hora": "18:30 hrs",
-        "texto": "Vals",
+        "hora": "19:00 hrs",
+        "texto": "Cena",
         "icono": "7.svg",
+        "lado": "left"
+      },
+            {
+        "hora": "19:30 hrs",
+        "texto": "Brindis",
+        "icono": "3.svg",
         "lado": "left"
       },
       {
         "hora": "20:00 hrs",
-        "texto": "Baile y diversión",
+        "texto": "Vals",
         "icono": "8.svg",
         "lado": "right"
+      },
+      {
+        "hora": "21:30 hrs",
+        "texto": "Partida de pastel",
+        "icono": "4.svg",
+        "lado": "left"
       }
     ]
   },
@@ -155,11 +167,11 @@
     "icono": "9.svg",
     "formal": "FORMAL",
     "labels": {
-      "mujeres": "Mujeres",
-      "hombres": "Hombres"
+      "mujeres": "",
+      "hombres": ""
     },
-    "mujeres": "Evitar vestir del color del vestido de la festejada.",
-    "hombres": "Camisa formal o traje."
+    "mujeres": "",
+    "hombres": ""
   },
 
   "regalos": {
@@ -179,8 +191,7 @@
       "gallery1.png",
       "gallery2.png",
       "gallery3.png",
-      "gallery4.png",
-      "gallery5.png"
+      "gallery4.png"
     ]
   },
 
