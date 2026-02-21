@@ -1,0 +1,503 @@
+/* ===============================
+   RESET
+================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #cfc8c3;
+  margin: 0;
+  font-family: "Crimson Text", serif;
+  color: #3e3e3e;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===============================
+   WRAPPER
+================================= */
+.wrapper {
+  max-width: 650px;
+  margin: 0 auto;
+  background: #f6f3f1;
+  box-shadow: none;
+}
+
+/* FONDO GENERAL */
+.hero-envelope {
+  background: #cfc8c3;
+  padding: 80px 20px 140px;
+  position: relative;
+}
+
+/* Marco exterior tipo maqueta */
+.hero-envelope::after {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+/* SOBRE */
+.envelope {
+  width: 520px;
+  max-width: 95%;
+  height: 320px;
+  margin: 0 auto;
+  background: #f2efec;
+  border-radius: 6px;
+  position: relative;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.18),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* SOLAPA */
+.envelope:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ece8e5;
+  clip-path: polygon(0 0, 100% 0, 50% 65%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* MONOGRAMA */
+.monogram {
+  position: absolute;
+  top: 95px;
+  width: 100%;
+  font-family: "Playfair Display", serif;
+  font-size: 70px;
+  letter-spacing: 3px;
+
+  background: linear-gradient(145deg, #c8b37a, #9e8451);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* TARJETA */
+.card {
+  width: 500px;
+  max-width: 92%;
+  margin: -20px auto 0; /* menos agresivo */
+  padding: 85px 45px 70px;
+  background: #fdfdfd;
+  border-radius: 4px;
+
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.25),
+    0 20px 40px rgba(0, 0, 0, 0.15);
+
+  background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* TEXTO */
+.blessing {
+  font-size: 20px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  color: #5b5b5b;
+}
+
+/* PADRES */
+.parents {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 55px;
+  font-size: 17px;
+  color: #555;
+}
+
+.parents div {
+  flex: 1;
+}
+
+/* NOMBRES */
+.names {
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+  font-weight: 400;
+
+  background: linear-gradient(145deg, #c8b37a, #9e8451);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+  margin-bottom: 30px;
+}
+
+/* FECHA */
+.date {
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #444;
+}
+
+.date span {
+  margin: 0 12px;
+  opacity: 0.5;
+}
+
+.intro {
+  font-size: 18px;
+  margin-bottom: 35px;
+  line-height: 1.6;
+  color: #5b5b5b;
+}
+
+.place {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.address {
+  font-size: 16px;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.time {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+/* NOMBRES */
+h1 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: 44px;
+  color: #b89c5c;
+  margin-bottom: 25px;
+}
+
+/* FECHA */
+.date {
+  letter-spacing: 4px;
+  font-size: 18px;
+}
+
+/* ===============================
+   FOTO FULL
+================================= */
+.hero-photo {
+  background: #f6f3f1;
+}
+
+.hero-photo img,
+.full-photo img {
+  width: 100%;
+  display: block;
+}
+
+/* ===============================
+   COUNTDOWN
+================================= */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 50px 0;
+  font-size: 20px;
+}
+
+.countdown div {
+  text-align: center;
+}
+
+.countdown span {
+  display: block;
+  font-size: 34px;
+  font-family: "Playfair Display", serif;
+}
+
+/* ===============================
+   SECCIONES
+================================= */
+.section {
+  padding: 90px 50px;
+  background: transparent; /* importante */
+}
+
+.decorative-seal {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+}
+
+.section h2 {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+.section img {
+  width: 80%;
+  margin: 35px auto;
+  display: block;
+  border-radius: 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #e8e3df;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #3e3e3e;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+/* Texto base estilo referencia */
+.place {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.address {
+  font-size: 16px;
+  margin-top: 8px;
+  line-height: 1.6;
+  color: #5b5b5b;
+}
+
+/* ===============================
+   VESTIMENTA
+================================= */
+
+.vestimenta h2 {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 34px;
+  margin-bottom: 30px;
+}
+
+.dress-type {
+  letter-spacing: 3px;
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+
+.dress-img {
+  width: 200px;
+  margin: 0 auto 40px;
+  display: block;
+}
+
+.dress-note {
+  font-size: 18px;
+  color: #5b5b5b;
+}
+
+/* ===============================
+   ITINERARIO
+================================= */
+
+.itinerary h2 {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 34px;
+  margin-bottom: 60px;
+}
+
+.timeline {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Línea central */
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:1px;
+  height:100%;
+  background:#e0e0e0;
+}
+
+.timeline-progress{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:2px;
+  height:0;
+  background:#6b6b6b;
+  top:0;
+  transition:height 0.3s ease;
+}
+
+/* Cada item */
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 70px;
+}
+
+/* Iconos izquierda */
+.icon {
+  width: 35%;
+  text-align: right;
+}
+
+.icon img {
+  width: 50px;
+  opacity: 0.7;
+}
+
+/* Punto central */
+.dot{
+  width:10px;
+  height:10px;
+  background:#cfcfcf;
+  border-radius:50%;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  transition:background 0.3s ease;
+}
+
+.timeline-item.active .dot{
+  background:#6b6b6b;
+}
+
+.timeline-item.active .content{
+  color:#000;
+}
+
+.timeline-item.active .icon img{
+  opacity:1;
+}
+
+.icon img{
+  opacity:.4;
+  transition:opacity 0.3s ease;
+}
+
+/* Texto derecha */
+.content {
+  width: 40%;
+  text-align: left;
+}
+
+.content .time {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+/* ==========================================
+   RESPONSIVE 
+========================================== */
+
+@media (max-width: 768px) {
+  /* Wrapper */
+  .wrapper {
+    max-width: 95%;
+  }
+
+  /* HERO */
+  .hero-envelope {
+    padding: 70px 15px 100px;
+  }
+
+  .envelope {
+    height: 220px;
+  }
+
+  .monogram {
+    font-size: 46px;
+    top: 60px;
+  }
+
+  .card {
+    margin: -25px auto 0;
+    padding: 55px 22px 50px;
+  }
+
+  .blessing {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+  }
+
+  .parents {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .names {
+    font-size: 30px;
+  }
+
+  .date {
+    font-size: 15px;
+    letter-spacing: 1.5px;
+  }
+
+  /* SECCIONES */
+  .section {
+    padding: 60px 20px;
+  }
+
+  .section img {
+    width: 90%;
+  }
+
+  /* COUNTDOWN */
+  .countdown {
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 15px;
+  }
+
+  .countdown span {
+    font-size: 24px;
+  }
+
+  .dress-img {
+    width: 160px;
+  }
+
+  .dress-type {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .timeline {
+    max-width: 300px;
+  }
+
+  .icon img {
+    width: 40px;
+  }
+
+  .timeline-item {
+    margin-bottom: 50px;
+  }
+}
