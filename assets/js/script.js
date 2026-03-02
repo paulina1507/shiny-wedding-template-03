@@ -27,7 +27,18 @@ setInterval(function () {
 
 }, 1000);
 
+  const reveals = document.querySelectorAll('.reveal');
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationDelay = `${index * 0.15}s`;
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach(el => observer.observe(el));
 // ===============================
 // ITINERARIO PROGRESS
 // ===============================
