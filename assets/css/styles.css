@@ -9,6 +9,9 @@
   --color-text-main: #2f2f2f;
   --color-text-soft: #5b5b5b;
   --color-text-muted: #6a6a6a;
+
+  --font-script: 'Great Vibes', cursive;
+  --font-title: 'Playfair Display', serif;
 }
 
 * {
@@ -96,26 +99,52 @@ body.locked {
     transform: translateY(-50%) rotate(360deg);
   }
 }
+
 /* ==========================================
    EFECTO PAPEL REUTILIZABLE
 ========================================== */
 .seal {
   position: absolute;
-  bottom: 40px;
-  top: 180px;
+  top: 130px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90px;
+  width: 120px;
   cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4))
-    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-.seal:hover {
-  transform: translateX(-50%) scale(1.08);
+.seal img {
+  width: 100%;
+  display: block;
+}
+
+.seal-text {
+  position: absolute;
+  font-family: var(--font-title);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #5a4314;
+  pointer-events: none;
+  animation: sealPulse 2s ease-in-out infinite;
+}
+
+@keyframes sealPulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
 }
 
 .envelope {
@@ -140,6 +169,7 @@ body.locked {
 .invitation.open .hero-envelope {
   padding-top: 180px;
   transition: padding 0.8s ease;
+  animation: heroBounce 0.8s ease 1.1s both;
 }
 
 .invitation.sealed {
@@ -199,21 +229,20 @@ body.locked {
   inset: 0;
   pointer-events: none;
 
-  background: linear-gradient(
-    130deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    transparent 40%,
-    rgba(0, 0, 0, 0.02) 100%
-  );
+  background: linear-gradient(130deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.02) 100%);
 
   opacity: 0.4;
   z-index: 0;
 }
 
-.paper-surface > * {
+.paper-surface>* {
   position: relative;
   z-index: 1;
 }
+
 /* ===============================
    WRAPPER
 ================================= */
@@ -228,6 +257,7 @@ body.locked {
   padding: 80px 20px 60px;
   position: relative;
   transition: padding 0.8s ease;
+  z-index: 2;
 }
 
 /* Marco exterior tipo maqueta */
@@ -256,6 +286,28 @@ body.locked {
     inset 0 -6px 18px rgba(0, 0, 0, 0.35);
 }
 
+@keyframes heroBounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-14px);
+  }
+
+  65% {
+    transform: translateY(5px);
+  }
+
+  85% {
+    transform: translateY(-2px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .envelope::after {
   content: "";
   position: absolute;
@@ -263,11 +315,9 @@ body.locked {
   border-radius: 10px;
   pointer-events: none;
 
-  background: radial-gradient(
-    circle at 30% 20%,
-    rgba(255, 255, 255, 0.15),
-    transparent 60%
-  );
+  background: radial-gradient(circle at 30% 20%,
+      rgba(255, 255, 255, 0.15),
+      transparent 60%);
 
   mix-blend-mode: soft-light;
   opacity: 0.6;
@@ -285,9 +335,9 @@ body.locked {
 
 .monogram {
   position: absolute;
-  top: 95px;
+  top: 35px;
   width: 100%;
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-script);
   font-size: 60px;
   letter-spacing: 3px;
   background: linear-gradient(145deg, #f6e2a6, #c8a24a 40%, #8f6b2e 70%);
@@ -358,14 +408,12 @@ body.locked {
 
 /* NOMBRES */
 .names {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-size: 48px;
   font-weight: 400;
-  background: linear-gradient(
-    145deg,
-    var(--color-gold-light),
-    var(--color-gold)
-  );
+  background: linear-gradient(145deg,
+      var(--color-gold-light),
+      var(--color-gold));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -406,11 +454,11 @@ body.locked {
 
 .time {
   margin-top: 25px;
-  margin-bottom: 35px; /* espacio antes del botón */
+  margin-bottom: 35px;
+  /* espacio antes del botón */
   letter-spacing: 3px;
-  color: var(
-    --color-primary
-  ); /* opcional si quieres que combine con el sobre */
+  color: var(--color-primary);
+  /* opcional si quieres que combine con el sobre */
 }
 
 /* ===============================
@@ -427,7 +475,7 @@ body.locked {
 }
 
 .section-title {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-size: 16px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -453,7 +501,7 @@ body.locked {
 
 /* TEXTO FALTAN */
 .countdown-label {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-style: italic;
   margin-bottom: 25px;
   color: var(--color-text-muted);
@@ -478,7 +526,7 @@ body.locked {
   letter-spacing: 1px;
   display: block;
   font-size: 34px;
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
 }
 
 /* ===============================
@@ -496,31 +544,31 @@ body.locked {
     0 25px 60px rgba(0, 0, 0, 0.18),
     inset 0 -2px 4px rgba(0, 0, 0, 0.05);
 
-  overflow: visible; /* 👈 importante */
+  overflow: visible;
+  /* 👈 importante */
 }
 
-/* Primera sección sin margen superior cuando está abierta */
-.invitation.open .section:first-of-type {
-  margin-top: 0;
-}
-
-/* Estado inicial (sellada) */
-.invitation .section:first-of-type {
-  transform: translateY(140px);
+/* Estado inicial (oculta dentro del sobre) */
+.invitation .card {
+  transform: translateY(120px);
   opacity: 0;
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 1s ease;
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1s ease;
 }
 
 /* Cuando se abre */
-.invitation.open .section:first-of-type {
-  transform: translateY(-115px); /* 👈 más pegada */
+.invitation.open .card {
+  margin-top: -160px;
+  /* 👈 literalmente encima del sobre */
+  transform: none;
   opacity: 1;
-  transition-delay: 0.45s; /* deja que la solapa termine */
+  position: relative;
+  z-index: 3;
 }
 
 .section h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-style: italic;
   font-weight: 400;
   font-size: 32px;
@@ -537,7 +585,8 @@ body.locked {
 
 .section-seal {
   position: absolute;
-  top: -120px; /* antes -150px */
+  top: -120px;
+  /* antes -150px */
   left: 50%;
   transform: translateX(-50%);
   width: 130px;
@@ -562,7 +611,7 @@ body.locked {
 ================================= */
 
 .vestimenta h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-style: italic;
   font-size: 34px;
   margin-bottom: 30px;
@@ -590,7 +639,7 @@ body.locked {
 ================================= */
 
 .itinerary h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-style: italic;
   font-size: 34px;
   margin-bottom: 60px;
@@ -700,7 +749,7 @@ body.locked {
 ================================= */
 
 .gallery h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-title);
   font-style: italic;
   font-size: 32px;
   margin-bottom: 50px;
@@ -782,10 +831,13 @@ body.locked {
 }
 
 .gift-item h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 20px; /* más compacto */
-  font-weight: 500; /* menos dramático */
-  color: #4a1c22; /* vino más profundo y sobrio */
+  font-family: var(--font-title);
+  font-size: 20px;
+  /* más compacto */
+  font-weight: 500;
+  /* menos dramático */
+  color: #4a1c22;
+  /* vino más profundo y sobrio */
   margin-bottom: 10px;
   letter-spacing: 0.5px;
 }
@@ -912,9 +964,12 @@ body.locked {
 
 .menu-toggle {
   position: fixed;
-  top: 20px; /* 👈 arriba */
-  right: 20px; /* 👈 derecha */
-  bottom: unset; /* 👈 quitamos el bottom */
+  top: 20px;
+  /* 👈 arriba */
+  right: 20px;
+  /* 👈 derecha */
+  bottom: unset;
+  /* 👈 quitamos el bottom */
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -922,7 +977,8 @@ body.locked {
   background: var(--color-primary);
   color: #fff;
   font-size: 22px;
-  z-index: 3000; /* 👈 más alto que el menú */
+  z-index: 3000;
+  /* 👈 más alto que el menú */
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
   display: none;
   transition: transform 0.3s ease;
@@ -1021,6 +1077,7 @@ body.locked {
 .floating-menu.visible {
   transform: translate(-50%, 0);
 }
+
 /* ===============================
    DESKTOP BOOST
 ================================= */
@@ -1053,7 +1110,8 @@ body.locked {
   }
 
   .invitation.open .floating-menu {
-    opacity: 0; /* inicia oculto arriba */
+    opacity: 0;
+    /* inicia oculto arriba */
     pointer-events: none;
   }
 
@@ -1062,13 +1120,15 @@ body.locked {
     pointer-events: auto;
   }
 }
+
 /* ==========================================
    RESPONSIVE 
 ========================================== */
 
 @media (max-width: 768px) {
-  .invitation.sealed {
-    min-height: 100vh;
+  .seal {
+    top: 65px;
+    width: 75px;
   }
 
   .invitation.sealed .wrapper {
@@ -1078,8 +1138,18 @@ body.locked {
     justify-content: center;
   }
 
+  .invitation.sealed {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .invitation.sealed .hero-envelope {
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .floating-menu {
@@ -1098,8 +1168,10 @@ body.locked {
     backdrop-filter: blur(20px);
     transition: bottom 0.4s ease;
 
-    opacity: 1; /* 👈 SIEMPRE 1 en móvil */
-    pointer-events: auto; /* 👈 SIEMPRE activo */
+    opacity: 1;
+    /* 👈 SIEMPRE 1 en móvil */
+    pointer-events: auto;
+    /* 👈 SIEMPRE activo */
 
     z-index: 2000;
   }
@@ -1118,7 +1190,8 @@ body.locked {
   }
 
   .floating-menu.visible {
-    opacity: 1; /* Neutraliza el comportamiento desktop */
+    opacity: 1;
+    /* Neutraliza el comportamiento desktop */
   }
 
   .floating-menu {
@@ -1134,10 +1207,11 @@ body.locked {
     z-index: 0;
   }
 
-  .floating-menu > * {
+  .floating-menu>* {
     position: relative;
     z-index: 2;
   }
+
   /* Wrapper */
   .wrapper {
     max-width: 95%;
@@ -1149,12 +1223,14 @@ body.locked {
   }
 
   .envelope {
-    height: 220px;
+    width: 320px;
+    max-width: 85%;
+    height: 190px;
   }
 
   .monogram {
-    font-size: 46px;
-    top: 60px;
+    font-size: 28px;
+    top: 20px;
   }
 
   .card {
@@ -1255,4 +1331,5 @@ body.locked {
     width: 100%;
     max-width: 300px;
   }
+
 }
