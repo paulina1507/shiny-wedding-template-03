@@ -337,7 +337,7 @@ body.locked {
   position: absolute;
   top: 35px;
   width: 100%;
-  font-family: var(--font-script);
+  font-family: var(--font-title);
   font-size: 60px;
   letter-spacing: 3px;
   background: linear-gradient(145deg, #f6e2a6, #c8a24a 40%, #8f6b2e 70%);
