@@ -26,6 +26,9 @@ body {
   color: var(--color-text-main);
   text-align: center;
   -webkit-font-smoothing: antialiased;
+
+  margin: 0;
+  overflow-x: hidden;
 }
 
 body.locked {
@@ -101,11 +104,10 @@ body.locked {
 ========================================== */
 .seal {
   position: absolute;
-  bottom: 40px;
-  top: 180px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90px;
+  width: 120px;
   cursor: pointer;
   transition:
     transform 0.3s ease,
@@ -143,9 +145,14 @@ body.locked {
 }
 
 .invitation.sealed {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.invitation.sealed .hero-envelope {
+  padding-top: 120px;
 }
 
 .invitation.sealed .invitation-content {
@@ -167,6 +174,14 @@ body.locked {
 .invitation.sealed .menu-toggle {
   opacity: 0;
   pointer-events: none;
+}
+
+.invitation-text {
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 18px 0 30px;
+  color: var(--color-text-soft);
+  font-style: italic;
 }
 
 .paper-surface {
@@ -223,11 +238,55 @@ body.locked {
   box-shadow: none;
 }
 
+.hero-stack {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+
+  padding-bottom: 100px;
+}
+.invitation.sealed .invitation-content {
+  display: none;
+}
+
+.invitation.open .invitation-content {
+  display: block;
+}
+
+.invitation.open .invitation-content .card {
+  position: absolute;
+  left: 50%;
+  top: 250px;
+  transform: translateX(-50%);
+  width: min(600px, 92%);
+  z-index: 5;
+
+  /* look premium */
+  border-radius: 10px;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.22),
+    0 2px 0 rgba(255, 255, 255, 0.85) inset;
+
+  animation: cardPop 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardPop {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
 /* FONDO GENERAL */
 .hero-envelope {
-  padding: 80px 20px 60px;
-  position: relative;
-  transition: padding 0.8s ease;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Marco exterior tipo maqueta */
@@ -285,7 +344,7 @@ body.locked {
 
 .monogram {
   position: absolute;
-  top: 95px;
+  top: 50px;
   width: 100%;
   font-family: "Playfair Display", serif;
   font-size: 60px;
@@ -299,12 +358,25 @@ body.locked {
     0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
+.invitation.open .monogram {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  pointer-events: none;
+}
+
 /* TARJETA */
 .card {
   padding: 110px 45px 70px;
+  background: #fffdfb;
+  border: 1px solid rgba(240, 236, 232, 0.9);
+  border-radius: 6px;
+
   box-shadow:
-    0 40px 90px rgba(0, 0, 0, 0.18),
-    0 2px 0 rgba(255, 255, 255, 0.8) inset;
+    0 16px 45px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .reveal {
@@ -337,23 +409,27 @@ body.locked {
   font-style: italic;
 }
 
-.flex-columns {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  font-size: 16px;
-  line-height: 1.8;
-  color: #555;
+/* ==========================================
+   PADRES + PADRINOS EN 2 COLUMNAS (CARD)
+========================================== */
+.family-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
+  margin: 10px 0 10px;
+  text-align: center;
+}
+
+.family-col .section-title {
+  margin-bottom: 14px;
 }
 
 .parents,
 .godparents {
-  margin-bottom: 45px;
-}
-
-.parents div,
-.godparents div {
-  flex: 1;
+  margin-bottom: 0; /* para que no meta separación extra */
+  color: #555;
+  line-height: 1.8;
+  font-size: 16px;
 }
 
 /* NOMBRES */
@@ -371,6 +447,68 @@ body.locked {
   color: transparent;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   margin: 20px 0 35px;
+}
+
+.names {
+  position: relative;
+  overflow: hidden;
+}
+
+/* capa de brillo */
+.names::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 120%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  opacity: 0;
+}
+
+/* cuando se abre la invitación */
+.invitation.open .names::after {
+  animation: goldShine 1.6s ease forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes goldShine {
+  0% {
+    left: -120%;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
+}
+
+.invitation.open .names {
+  animation: nameFade 1s ease forwards;
+}
+
+@keyframes nameFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* FECHA */
@@ -448,7 +586,7 @@ body.locked {
 ================================= */
 /* CONTADOR WRAPPER */
 .countdown-wrapper {
-  padding: 60px 0 70px;
+  padding: 60px 0;
 }
 
 /* TEXTO FALTAN */
@@ -481,22 +619,142 @@ body.locked {
   font-family: "Playfair Display", serif;
 }
 
+.music-section {
+  padding: 50px 45px 60px;
+}
+
+.music-progress {
+  width: 100%;
+  max-width: 340px;
+  margin: 18px auto 22px;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+
+  background: linear-gradient(
+    to right,
+    var(--color-gold) 0%,
+    var(--color-gold) var(--progress, 0%),
+    #e5e0d8 var(--progress, 0%),
+    #e5e0d8 100%
+  );
+  cursor: pointer;
+  transition: background 0.15s linear;
+  margin: 14px auto 16px;
+}
+
+/* bolita elegante */
+
+.music-progress::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+/* botones laterales */
+
+.music-decor-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.music-decor-btn img {
+  width: 60px;
+  height: 60px;
+}
+
+.music-svg-btn {
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+
+  cursor: pointer;
+
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-icon {
+  width: 60px;
+  height: 60px;
+}
+
+.music-svg-btn:hover .music-icon {
+  transform: scale(1.15);
+}
+
+.music-section h2 {
+  margin-bottom: 25px;
+}
+
+.music-text {
+  margin-bottom: 40px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.vinyl {
+  width: 120px;
+  margin: 18px auto 10px;
+}
+
+/* animación */
+.spin {
+  animation: spinVinyl 4s linear infinite;
+}
+
+.vinyl-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+@keyframes spinVinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 /* ===============================
    SECCIONES
 ================================= */
 .section {
   padding: 80px 55px 90px;
-  background: #ffffff;
-  margin: 120px auto;
-  border: 1px solid #f0ece8;
+  background: #fffdfb;
+  margin: 90px auto;
+  border: 1px solid rgba(240, 236, 232, 0.9);
   border-radius: 6px;
   max-width: 600px;
   position: relative;
   box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.18),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.05);
-
-  overflow: visible; /* 👈 importante */
+    0 16px 45px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  overflow: visible;
 }
 
 /* Primera sección sin margen superior cuando está abierta */
@@ -508,8 +766,9 @@ body.locked {
 .invitation .section:first-of-type {
   transform: translateY(140px);
   opacity: 0;
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 1s ease;
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1s ease;
 }
 
 /* Cuando se abre */
@@ -532,12 +791,12 @@ body.locked {
   margin: 0 auto 25px;
   margin-bottom: 35px;
   width: 40%;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .section-seal {
   position: absolute;
-  top: -120px; /* antes -150px */
+  top: -100px; /* antes -150px */
   left: 50%;
   transform: translateX(-50%);
   width: 130px;
@@ -557,6 +816,9 @@ body.locked {
   color: var(--color-text-soft);
 }
 
+#musica + .section {
+  margin-top: 140px;
+}
 /* ===============================
    VESTIMENTA
 ================================= */
@@ -793,14 +1055,6 @@ body.locked {
 /* ==========================================
    RSVP SECTION – PREMIUM
 ========================================== */
-
-.rsvp-section {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-  padding-bottom: 130px;
-}
-
 .rsvp-text {
   font-size: 16px;
   color: var(--color-text-soft);
@@ -1026,19 +1280,14 @@ body.locked {
 ================================= */
 
 @media (min-width: 1024px) {
-  .floating-menu {
-    top: 40px;
-    padding: 16px 40px;
-    gap: 35px;
-    border-radius: 60px;
-    background: rgba(25, 20, 22, 0.92);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-  }
-
   .floating-menu a {
     font-size: 15px;
     letter-spacing: 2px;
     font-weight: 500;
+  }
+
+  .hero-photo {
+    margin-top: 350px; /* ajusta a gusto */
   }
 }
 
@@ -1067,19 +1316,25 @@ body.locked {
 ========================================== */
 
 @media (max-width: 768px) {
-  .invitation.sealed {
-    min-height: 100vh;
+  .hero-photo {
+    margin-top: 120px; /* ajusta a gusto */
   }
-
-  .invitation.sealed .wrapper {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .invitation.sealed .hero-envelope {
     padding: 0;
+  }
+
+  .invitation.sealed .hero-stack {
+    padding-bottom: 0;
+  }
+
+  .invitation.sealed .monogram {
+    font-size: 38px;
+    top: 60px;
+  }
+
+  .invitation.sealed .seal {
+    width: 70px;
+    top: 100px;
   }
 
   .floating-menu {
@@ -1162,6 +1417,15 @@ body.locked {
     padding: 50px 18px 45px;
   }
 
+  .invitation.open .hero-stack {
+    padding-bottom: 260px; /* solo cuando sale la card */
+  }
+
+  .invitation.open .invitation-content .card {
+    top: 260px; /* más arriba en móvil */
+    width: 92%;
+  }
+
   .blessing {
     font-size: 17px;
     line-height: 1.5;
@@ -1186,6 +1450,7 @@ body.locked {
   /* SECCIONES */
   .section {
     max-width: 90%;
+    padding: 60px 22px 70px; /* más fino y con aire */
   }
 
   .section-seal {

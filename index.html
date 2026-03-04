@@ -44,44 +44,59 @@
       <div class="wrapper">
         <!-- HERO - SOBRE -->
         <section id="inicio" class="hero-envelope">
-          <div class="envelope">
-            <img
-              src="assets/img/sello.png"
-              class="seal"
-              id="seal"
-              alt="Abrir invitación"
-            />
-            <div class="monogram">M & M</div>
+          <div class="hero-stack">
+            <div class="envelope">
+              <img
+                src="assets/img/sello.png"
+                class="seal"
+                id="seal"
+                alt="Abrir invitación"
+              />
+              <div class="monogram">M & M</div>
+            </div>
           </div>
         </section>
 
         <div class="invitation-content">
           <div class="card paper-surface">
             <p class="blessing reveal">
-              Con la bendición de Dios y el amor de nuestras familias
+              Con la bendición de Dios<br />
+              y el amor de nuestras familias
             </p>
 
-            <h3 class="section-title reveal">Padres</h3>
+            <h1 class="names reveal">Miguel y Melisa</h1>
 
-            <div class="parents reveal">
-              <div>
-                Melisa Chávez<br />
-                Luis Enrique Olivas
+            <p class="invitation-text reveal">
+              tenemos la alegría de invitarte<br />
+              a celebrar con nosotros<br />
+              el día de nuestra boda
+            </p>
+
+            <div class="divider reveal"></div>
+
+            <div class="family-grid reveal">
+              <div class="family-col">
+                <h3 class="section-title">Padres</h3>
+                <div class="parents">
+                  <div>
+                    Melisa Chávez<br />
+                    Luis Enrique Olivas
+                  </div>
+                </div>
+              </div>
+
+              <div class="family-col">
+                <h3 class="section-title">Padrinos</h3>
+                <div class="godparents">
+                  <div>
+                    Priscila Pórtela<br />
+                    Eduardo Moreira
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="divider reveal"></div>
-
-            <h3 class="section-title reveal">Padrinos</h3>
-
-            <div class="godparents reveal">
-              <div>
-                Priscila Pórtela<br />
-                Eduardo Moreira
-              </div>
-            </div>
-
-            <h1 class="names reveal">Miguel y Melisa</h1>
 
             <div class="date reveal">
               SÁBADO <span>|</span> 04 <span>|</span> ABRIL <br />2026
@@ -124,6 +139,72 @@
             </div>
           </section>
 
+          <!-- ==========================================
+              MUSICA
+          ========================================== -->
+          <section id="musica" class="section music-section paper-surface">
+            <h2>Nuestra canción</h2>
+
+            <p class="music-text reveal">
+              Esta canción acompaña este momento tan especial para nosotros.<br />
+              Puedes pausarla o volver a escucharla cuando quieras.
+            </p>
+
+            <div class="vinyl-player reveal">
+              <!-- AUDIO -->
+              <audio id="bgMusic" preload="auto" loop>
+                <source src="assets/music/song.mp3" type="audio/mpeg" />
+              </audio>
+
+              <!-- VINILO -->
+              <img
+                src="assets/img/vinyl.png"
+                class="vinyl"
+                id="vinyl"
+                alt="Nuestra canción"
+              />
+
+              <!-- BARRA DE PROGRESO -->
+              <input
+                type="range"
+                id="musicProgress"
+                class="music-progress"
+                value="0"
+                min="0"
+                max="100"
+              />
+
+              <!-- CONTROLES -->
+              <div class="music-controls">
+                <!-- ANTERIOR -->
+                <button id="prevBtn" class="music-decor-btn">
+                  <img src="assets/img/back.svg" alt="" />
+                </button>
+
+                <!-- PLAY / PAUSE -->
+                <button id="musicBtn" class="music-svg-btn">
+                  <img
+                    src="assets/img/play.svg"
+                    id="iconPlay"
+                    class="music-icon"
+                    alt="Reproducir"
+                  />
+
+                  <img
+                    src="assets/img/pause.svg"
+                    id="iconPause"
+                    class="music-icon hidden"
+                    alt="Pausar"
+                  />
+                </button>
+
+                <!-- SIGUIENTE -->
+                <button id="nextBtn" class="music-decor-btn">
+                  <img src="assets/img/next.svg" alt="" />
+                </button>
+              </div>
+            </div>
+          </section>
           <!-- ==========================================
         CEREMONIA
       =========================================== -->
@@ -280,7 +361,7 @@
           <section id="regalos" class="section regalos paper-surface">
             <h2>Regalos</h2>
             <div class="gift-content">
-              <p class="gift-mainreveal">
+              <p class="gift-main reveal">
                 Si desean acompañarnos con un detalle especial, pueden hacerlo
                 de cualquiera de las siguientes maneras.
               </p>
@@ -355,7 +436,7 @@
           <!-- ==========================================
       RSVP
       =========================================== -->
-          <section id="asistencia" class="section rsvp-section paper-surface">
+          <section id="asistencia" class="section paper-surface">
             <h2>Confirmación de asistencia</h2>
 
             <p class="rsvp-text reveal">
