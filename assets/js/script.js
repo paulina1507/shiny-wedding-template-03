@@ -1,10 +1,178 @@
 // ===============================
+// CARGAR JSON
+// ===============================
+let invitationData = null;
+
+async function loadInvitation() {
+  try {
+    const res = await fetch("assets/data.json?v=" + Date.now());
+
+    if (!res.ok) throw new Error("No se pudo cargar data.json");
+
+    invitationData = await res.json();
+
+    const data = invitationData;
+
+    // HERO
+    const title = document.getElementById("pageTitle");
+    const monogram = document.getElementById("monogram");
+    const names = document.getElementById("names");
+
+    if (title)
+      title.textContent = `${data.evento.novio} & ${data.evento.novia}`;
+    if (monogram) monogram.textContent = data.evento.monograma;
+    if (names)
+      names.textContent = `${data.evento.novio} y ${data.evento.novia}`;
+
+    // FAMILIA
+    const parents = document.getElementById("parents");
+    const godparents = document.getElementById("godparents");
+
+    if (parents) parents.innerHTML = data.familia.padres.join("<br>");
+    if (godparents) godparents.innerHTML = data.familia.padrinos.join("<br>");
+
+    // FECHA
+    const d = data.evento.fecha;
+    const dateEl = document.getElementById("eventDate");
+
+    if (dateEl) {
+      dateEl.innerHTML = `
+        ${d.dia_semana} <span>|</span> ${d.dia} <span>|</span> ${d.mes}
+        <br>${d.anio}
+      `;
+    }
+
+    // LUGARES
+    const c = data.lugares.ceremonia;
+    const r = data.lugares.recepcion;
+
+    const ceremonyImg = document.getElementById("ceremonyImg");
+    if (ceremonyImg) ceremonyImg.src = c.imagen;
+
+    const ceremonyPlace = document.getElementById("ceremonyPlace");
+    if (ceremonyPlace) ceremonyPlace.textContent = c.lugar;
+
+    const ceremonyAddress = document.getElementById("ceremonyAddress");
+    if (ceremonyAddress) ceremonyAddress.innerHTML = c.direccion_html;
+
+    const ceremonyTime = document.getElementById("ceremonyTime");
+    if (ceremonyTime) ceremonyTime.textContent = c.hora;
+
+    const ceremonyMap = document.getElementById("ceremonyMap");
+    if (ceremonyMap) ceremonyMap.href = c.mapa_url;
+
+    // FOTO FINAL
+    const final = data.fotos.final;
+    const finalImg = document.getElementById("finalPhoto");
+
+    if (finalImg) {
+      finalImg.src = final.src;
+      finalImg.alt = final.alt || "";
+    }
+
+    // VESTIMENTA
+    const dress = data.vestimenta;
+
+    document.getElementById("dressType").textContent = dress.tipo;
+    document.getElementById("dressImg").src = dress.imagen;
+    document.getElementById("dressNote").textContent = dress.nota;
+
+    // ITINERARIO
+    const timeline = document.getElementById("timelineContainer");
+
+    if (timeline) {
+      timeline.innerHTML = "";
+
+      data.itinerario.forEach((item) => {
+        const html = `
+        <div class="timeline-item">
+          <div class="icon">
+            <img src="${item.icono}">
+          </div>
+          <div class="dot"></div>
+          <div class="content">
+            <p class="time reveal">${item.hora}</p>
+            <p>${item.evento}</p>
+          </div>
+        </div>
+        `;
+
+        timeline.insertAdjacentHTML("beforeend", html);
+      });
+    }
+
+    // REGALOS
+    const giftContainer = document.getElementById("giftOptions");
+    const giftIntro = document.querySelector(".gift-main");
+
+    if (giftIntro) giftIntro.textContent = data.regalos.intro;
+
+    if (giftContainer) {
+      giftContainer.innerHTML = "";
+
+      data.regalos.opciones.forEach((g) => {
+        const button = g.boton
+          ? `<a href="${g.url || "#"}"
+        class="btn btn-primary ${g.tipo === "modal" ? "btn-modal" : ""}">
+        ${g.boton}
+      </a>`
+          : "";
+
+        const html = `
+    <div class="gift-item reveal">
+      <img src="${g.icono}" class="gift-icon-top">
+      <h3>${g.titulo}</h3>
+      <p class="gift-secondary">${g.descripcion}</p>
+      ${button}
+    </div>
+  `;
+
+        giftContainer.insertAdjacentHTML("beforeend", html);
+      });
+
+      // Después activamos la animación reveal
+      const newItems = giftContainer.querySelectorAll(".gift-item");
+      newItems.forEach((el) => el.classList.add("visible"));
+    }
+
+    // GALERIA
+    const gallery = document.getElementById("galleryTrack");
+
+    if (gallery) {
+      gallery.innerHTML = "";
+
+      data.galeria.forEach((src) => {
+        const img = document.createElement("img");
+        img.src = src;
+
+        gallery.appendChild(img);
+      });
+    }
+
+    // RSVP TEXTO
+    const rsvp = document.getElementById("rsvpText");
+
+    if (rsvp) {
+      rsvp.innerHTML = `
+      Por favor confirma tu asistencia<br>
+      antes del <strong>${data.rsvp.fecha_limite}</strong>.
+      `;
+    }
+    // FECHA PARA COUNTDOWN
+    targetDate = new Date(data.contador.fecha_evento).getTime();
+  } catch (err) {
+    console.error("Error cargando invitación:", err);
+  }
+}
+// ===============================
 // COUNTDOWN
 // ===============================
 
-const targetDate = new Date("April 4, 2026 16:00:00").getTime();
+let targetDate = null;
 
 const countdownInterval = setInterval(function () {
+  if (!targetDate) return;
+
   const now = new Date().getTime();
   const distance = targetDate - now;
 
@@ -189,6 +357,7 @@ function controlMenuVisibility() {
 // ===============================
 
 document.addEventListener("DOMContentLoaded", function () {
+  loadInvitation();
   const menu = document.getElementById("floatingMenu");
   const toggle = document.getElementById("menuToggle");
   const overlay = document.getElementById("menuOverlay");
@@ -211,6 +380,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
 
+  const currentTimeEl = document.getElementById("currentTime");
+  const remainingTimeEl = document.getElementById("remainingTime");
+
   if (music) {
     // ===============================
     // ESTADO INICIAL
@@ -223,28 +395,50 @@ document.addEventListener("DOMContentLoaded", function () {
     // PLAY / PAUSE
     // ===============================
 
-    btn?.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
+    btn?.addEventListener("click", async () => {
+      try {
+        if (music.paused) {
+          await music.play();
 
-        playIcon.classList.add("hidden");
-        pauseIcon.classList.remove("hidden");
+          playIcon?.classList.add("hidden");
+          pauseIcon?.classList.remove("hidden");
 
-        vinyl?.classList.add("spin");
-      } else {
-        music.pause();
+          vinyl?.classList.remove("slow-stop");
+          vinyl?.classList.add("spin");
+        } else {
+          music.pause();
 
-        pauseIcon.classList.add("hidden");
-        playIcon.classList.remove("hidden");
+          pauseIcon?.classList.add("hidden");
+          playIcon?.classList.remove("hidden");
 
-        vinyl?.classList.remove("spin");
+          vinyl?.classList.remove("spin");
+          vinyl?.classList.add("slow-stop");
+        }
+      } catch (err) {
+        console.log("Autoplay bloqueado por el navegador");
       }
     });
 
     // ===============================
     // BARRA DE PROGRESO
     // ===============================
+    function formatTime(seconds) {
+      if (!seconds || isNaN(seconds)) return "0:00";
 
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+
+      return `${m}:${s < 10 ? "0" : ""}${s}`;
+    }
+
+    // cuando el navegador conoce la duración
+    music.addEventListener("loadedmetadata", () => {
+      if (remainingTimeEl) {
+        remainingTimeEl.textContent = "-" + formatTime(music.duration);
+      }
+    });
+
+    // actualización mientras reproduce
     music.addEventListener("timeupdate", () => {
       if (!music.duration) return;
 
@@ -252,14 +446,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
       progress.value = percent;
       progress.style.setProperty("--progress", percent + "%");
+
+      // tiempo actual
+      if (currentTimeEl) {
+        currentTimeEl.textContent = formatTime(music.currentTime);
+      }
+
+      // tiempo restante
+      if (remainingTimeEl) {
+        const remaining = music.duration - music.currentTime;
+        remainingTimeEl.textContent = "-" + formatTime(remaining);
+      }
     });
+    // ===============================
+    // CONTROL MANUAL DE LA BARRA
+    // ===============================
 
     progress?.addEventListener("input", () => {
-      const time = (progress.value / 100) * music.duration;
+      if (!music.duration) return;
 
-      music.currentTime = time;
+      const newTime = (progress.value / 100) * music.duration;
+      music.currentTime = newTime;
     });
-
     // ===============================
     // BOTONES PREV / NEXT
     // ===============================
@@ -330,6 +538,7 @@ document.addEventListener("DOMContentLoaded", function () {
             playIcon.classList.add("hidden");
             pauseIcon.classList.remove("hidden");
 
+            vinyl?.classList.remove("slow-stop");
             vinyl?.classList.add("spin");
           })
           .catch(() => {});
@@ -343,4 +552,25 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", controlMenuVisibility);
 
   controlMenuVisibility();
+});
+
+// ===============================
+// MODAL TRANSFERENCIA
+// ===============================
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("btn-modal")) {
+    e.preventDefault();
+
+    const modal = document.getElementById("bankModal");
+    if (modal) modal.classList.add("active");
+  }
+
+  if (
+    e.target.id === "closeBankModal" ||
+    e.target.classList.contains("modal-overlay")
+  ) {
+    const modal = document.getElementById("bankModal");
+    if (modal) modal.classList.remove("active");
+  }
 });

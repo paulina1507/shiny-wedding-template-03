@@ -10,8 +10,8 @@
   --color-text-soft: #5b5b5b;
   --color-text-muted: #6a6a6a;
 
-  --font-script: 'Great Vibes', cursive;
-  --font-title: 'Playfair Display', serif;
+  --font-script: "Great Vibes", cursive;
+  --font-title: "Playfair Display", serif;
 }
 
 * {
@@ -116,8 +116,11 @@ body.locked {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .seal img {
@@ -210,7 +213,7 @@ body.locked {
 .invitation-text {
   font-size: 18px;
   line-height: 1.8;
-  margin: 18px 0 30px;
+  margin: 14px 0 24px;
   color: var(--color-text-soft);
   font-style: italic;
 }
@@ -245,16 +248,18 @@ body.locked {
   inset: 0;
   pointer-events: none;
 
-  background: linear-gradient(130deg,
-      rgba(255, 255, 255, 0.4) 0%,
-      transparent 40%,
-      rgba(0, 0, 0, 0.02) 100%);
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
 
   opacity: 0.4;
   z-index: 0;
 }
 
-.paper-surface>* {
+.paper-surface > * {
   position: relative;
   z-index: 1;
 }
@@ -287,7 +292,7 @@ body.locked {
 .invitation.open .invitation-content .card {
   position: absolute;
   left: 50%;
-  top: 250px;
+  top: 420px; /* antes 250 */
   transform: translateX(-50%);
   width: min(600px, 92%);
   z-index: 5;
@@ -374,9 +379,11 @@ body.locked {
   border-radius: 10px;
   pointer-events: none;
 
-  background: radial-gradient(circle at 30% 20%,
-      rgba(255, 255, 255, 0.15),
-      transparent 60%);
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 255, 255, 0.15),
+    transparent 60%
+  );
 
   mix-blend-mode: soft-light;
   opacity: 0.6;
@@ -418,15 +425,18 @@ body.locked {
 }
 
 /* TARJETA */
-.card {
-  padding: 110px 45px 70px;
+.card,
+.section {
+  padding: 60px 45px 70px;
   background: #fffdfb;
+  margin: 70px auto;
   border: 1px solid rgba(240, 236, 232, 0.9);
-  border-radius: 6px;
-
+  max-width: 600px;
+  position: relative;
   box-shadow:
     0 16px 45px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  overflow: visible;
 }
 
 .reveal {
@@ -453,7 +463,7 @@ body.locked {
 /* TEXTO */
 .blessing {
   font-size: 18px;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   line-height: 1.8;
   color: var(--color-text-muted);
   font-style: italic;
@@ -487,14 +497,16 @@ body.locked {
   font-family: var(--font-title);
   font-size: 48px;
   font-weight: 400;
-  background: linear-gradient(145deg,
-      var(--color-gold-light),
-      var(--color-gold));
+  background: linear-gradient(
+    145deg,
+    var(--color-gold-light),
+    var(--color-gold)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-  margin: 20px 0 35px;
+  margin: 15px 0 25px;
 }
 
 .names {
@@ -573,7 +585,7 @@ body.locked {
 
 .intro {
   font-size: 18px;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   line-height: 1.9;
   color: var(--color-text-soft);
 }
@@ -634,7 +646,7 @@ body.locked {
 ================================= */
 /* CONTADOR WRAPPER */
 .countdown-wrapper {
-  padding: 60px 0;
+  padding: 30px 0 5px;
 }
 
 /* TEXTO FALTAN */
@@ -667,16 +679,10 @@ body.locked {
   font-family: var(--font-title);
 }
 
-.music-section {
-  padding: 50px 45px 60px;
-}
-
 .music-progress {
   width: 100%;
-  max-width: 340px;
-  margin: 18px auto 22px;
+  max-width: 520px;
   appearance: none;
-  height: 4px;
   border-radius: 4px;
 
   background: linear-gradient(
@@ -709,10 +715,33 @@ body.locked {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 28px;
   margin-bottom: 18px;
 }
 
+.music-time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 520px;
+  margin: -10px auto 18px;
+  font-size: 12px;
+  color: #777;
+  letter-spacing: 0.5px;
+}
+
+.music-time span {
+  min-width: 40px;
+}
+
+.music-time span:first-child {
+  text-align: left;
+}
+
+.music-time span:last-child {
+  text-align: right;
+}
 /* botones laterales */
 
 .music-decor-btn {
@@ -722,8 +751,8 @@ body.locked {
 }
 
 .music-decor-btn img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .music-svg-btn {
@@ -734,8 +763,8 @@ body.locked {
 
   cursor: pointer;
 
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 
   display: flex;
   align-items: center;
@@ -743,8 +772,8 @@ body.locked {
 }
 
 .music-icon {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .music-svg-btn:hover .music-icon {
@@ -765,12 +794,14 @@ body.locked {
 
 .vinyl {
   width: 120px;
-  margin: 18px auto 10px;
+  margin: 18px auto 0;
 }
 
-/* animación */
-.spin {
-  animation: spinVinyl 4s linear infinite;
+.section img:not(.vinyl) {
+  display: block;
+  margin: 0 auto 35px;
+  width: 40%;
+  border-radius: 8px;
 }
 
 .vinyl-player {
@@ -780,7 +811,19 @@ body.locked {
   gap: 14px;
 }
 
-@keyframes spinVinyl {
+.vinyl {
+  transition: transform 0.8s ease-out;
+}
+
+.vinyl.spin {
+  animation: vinylSpin 4s linear infinite;
+}
+
+.vinyl.slow-stop {
+  animation: vinylStop 0.8s ease-out forwards;
+}
+
+@keyframes vinylSpin {
   from {
     transform: rotate(0deg);
   }
@@ -788,22 +831,18 @@ body.locked {
     transform: rotate(360deg);
   }
 }
+
+@keyframes vinylStop {
+  from {
+    transform: rotate(var(--rotation, 0deg));
+  }
+  to {
+    transform: rotate(calc(var(--rotation, 0deg) + 20deg));
+  }
+}
 /* ===============================
    SECCIONES
 ================================= */
-.section {
-  padding: 80px 55px 90px;
-  background: #fffdfb;
-  margin: 90px auto;
-  border: 1px solid rgba(240, 236, 232, 0.9);
-  border-radius: 6px;
-  max-width: 600px;
-  position: relative;
-  box-shadow:
-    0 16px 45px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  overflow: visible;
-}
 
 /* Estado inicial (oculta dentro del sobre) */
 .invitation .card {
@@ -845,8 +884,13 @@ body.locked {
   top: -100px; /* antes -150px */
   left: 50%;
   transform: translateX(-50%);
-  width: 130px;
+  width: 120px;
   z-index: 5;
+}
+
+#lugar .section-seal {
+  top: -120px;
+  transform: translateX(-50%) scale(0.95);
 }
 
 /* Texto base estilo referencia */
@@ -936,7 +980,7 @@ body.locked {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
 }
 
 /* Iconos izquierda */
@@ -1011,7 +1055,7 @@ body.locked {
   font-family: var(--font-title);
   font-style: italic;
   font-size: 32px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .carousel {
@@ -1021,16 +1065,22 @@ body.locked {
 
 .carousel-track {
   display: flex;
+  gap: 18px;
   width: max-content;
-  animation: scroll 35s linear infinite;
+  animation: scroll 40s linear infinite;
 }
 
 .carousel img {
   width: 280px;
   height: 380px;
   object-fit: cover;
-  margin-right: 25px;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  transition: transform 0.4s ease;
+}
+
+.carousel img:hover {
+  transform: scale(1.04);
 }
 
 /* Animación infinita */
@@ -1038,20 +1088,17 @@ body.locked {
   from {
     transform: translateX(0);
   }
-
   to {
     transform: translateX(-50%);
   }
 }
 
 /* Contenedor opciones */
-/* Layout horizontal elegante */
-.gift-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 35px;
-  margin-top: 35px;
-  align-items: start;
+.gift-options{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:35px;
+  margin-top:35px;
 }
 
 /* Compacto */
@@ -1086,7 +1133,7 @@ body.locked {
 
 .gift-item:hover .gift-icon-top {
   filter: grayscale(0%) brightness(1);
-  transform: scale(2.2);
+  transform: scale(1);
 }
 
 .gift-item h3 {
@@ -1101,6 +1148,79 @@ body.locked {
   letter-spacing: 0.5px;
 }
 
+/* ===============================
+MODAL
+================================ */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+
+  z-index: 4000;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(4px);
+}
+
+.modal-box {
+  position: relative;
+  max-width: 420px;
+  width: 90%;
+  padding: 45px 35px;
+  border-radius: 10px;
+  background: #fffdfb;
+  box-shadow: 0 30px 70px rgba(0,0,0,.25);
+
+  animation: modalPop .35s ease;
+}
+
+@keyframes modalPop{
+  from{
+    transform: scale(.9) translateY(10px);
+    opacity:0;
+  }
+  to{
+    transform: scale(1) translateY(0);
+    opacity:1;
+  }
+}
+
+.modal-close{
+  position:absolute;
+  top:15px;
+  right:18px;
+  border:none;
+  background:none;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.bank-info{
+  margin:25px 0;
+  line-height:1.8;
+  font-size:16px;
+}
+
+.bank-note{
+  font-size:14px;
+  color:#666;
+}
 /* ==========================================
    RSVP SECTION – PREMIUM
 ========================================== */
@@ -1166,7 +1286,7 @@ body.locked {
 ================================= */
 
 .footer {
-  padding: 60px 20px 50px;
+  padding: 40px 20px 40px;
   text-align: center;
 }
 
@@ -1451,7 +1571,7 @@ body.locked {
     z-index: 0;
   }
 
-  .floating-menu>* {
+  .floating-menu > * {
     position: relative;
     z-index: 2;
   }
@@ -1474,12 +1594,12 @@ body.locked {
 
   .monogram {
     font-size: 28px;
-    top: 20px;
+    top: 50px;
   }
 
   .card {
-    margin: -25px auto 0;
-    padding: 50px 18px 45px;
+    margin: -10px auto 0;
+    padding: 40px 18px 38px;
   }
 
   .invitation.open .hero-stack {
@@ -1487,14 +1607,14 @@ body.locked {
   }
 
   .invitation.open .invitation-content .card {
-    top: 260px; /* más arriba en móvil */
+    top: 380px; /* más arriba en móvil */
     width: 92%;
   }
 
   .blessing {
     font-size: 17px;
     line-height: 1.5;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
   }
 
   .parents {
@@ -1505,11 +1625,16 @@ body.locked {
 
   .names {
     font-size: 30px;
+    margin: 10px 0 18px;
   }
 
   .date {
     font-size: 15px;
     letter-spacing: 1.5px;
+  }
+
+  .invitation-text {
+    margin: 12px 0 20px;
   }
 
   /* SECCIONES */
@@ -1518,8 +1643,8 @@ body.locked {
     padding: 60px 22px 70px; /* más fino y con aire */
   }
 
-  .section-seal {
-    top: -80px;
+  #lugar .section-seal {
+    top: -50px;
   }
 
   .section img {
@@ -1585,5 +1710,4 @@ body.locked {
     width: 100%;
     max-width: 300px;
   }
-
 }

@@ -1,0 +1,123 @@
+{
+  "evento": {
+    "novio": "Miguel",
+    "novia": "Melisa",
+    "monograma": "M & M",
+    "fecha": {
+      "dia_semana": "SÁBADO",
+      "dia": "05",
+      "mes": "DICIEMBRE",
+      "anio": "2026"
+    }
+  },
+
+  "familia": {
+    "padres": ["Melisa Chávez", "Luis Enrique Olivas"],
+    "padrinos": ["Priscila Pórtela", "Eduardo Moreira"]
+  },
+
+  "contador": {
+    "fecha_evento": "2026-12-05T16:00:00"
+  },
+
+  "lugares": {
+    "ceremonia": {
+      "titulo": "Ceremonia",
+      "imagen": "assets/img/iglesia.png",
+      "lugar": "Catedral de Nuestra Señora de la Inmaculada Concepción de Puebla",
+      "direccion_html": "C. 16 de Septiembre s/n, Centro histórico de Puebla,<br />72000 Heroica Puebla de Zaragoza, Pue.",
+      "hora": "4:00 P.M.",
+      "mapa_url": "https://maps.app.goo.gl/yZiAkRcx6i9EpCE78"
+    },
+    "recepcion": {
+      "titulo": "Recepción",
+      "imagen": "assets/img/salon.png",
+      "lugar": "Grand Fiesta Americana",
+      "direccion_html": "Osa Mayor 2507 Col, Reserva Territorial Atlixcáyotl,<br />Concepción las Lajas, 72190 Heroica<br />Puebla de Zaragoza, Pue.",
+      "hora": "7:00 P.M.",
+      "mapa_url": "https://maps.app.goo.gl/UcMQvTGSmaGJ9Mup7"
+    }
+  },
+
+  "fotos": {
+    "final": {
+      "src": "assets/img/foto1.png",
+      "alt": "Foto final"
+    }
+  },
+
+  "vestimenta": {
+    "tipo": "ETIQUETA DE GALA",
+    "imagen": "assets/img/vestimenta.png",
+    "nota": "Respetuosamente, se reserva el blanco para la novia."
+  },
+
+  "itinerario": [
+    {
+      "hora": "4:00 P.M.",
+      "evento": "Ceremonia Religiosa",
+      "icono": "assets/img/iglesia-icon.png"
+    },
+    {
+      "hora": "7:00 P.M.",
+      "evento": "Recepción",
+      "icono": "assets/img/copas-icon.png"
+    },
+    {
+      "hora": "8:40 P.M.",
+      "evento": "Cena",
+      "icono": "assets/img/cena-icon.png"
+    },
+    {
+      "hora": "10:00 P.M.",
+      "evento": "Vals",
+      "icono": "assets/img/vals-icon.png"
+    },
+    {
+      "hora": "10:30 P.M.",
+      "evento": "Baile",
+      "icono": "assets/img/baile-icon.png"
+    }
+  ],
+
+  "regalos": {
+    "intro": "Si desean acompañarnos con un detalle especial, pueden hacerlo de cualquiera de las siguientes maneras.",
+    "opciones": [
+      {
+        "titulo": "Mesa de regalos",
+        "descripcion": "Disponible en Liverpool.",
+        "icono": "assets/img/icon-liverpool.png",
+        "boton": "Ver mesa",
+        "url": "https://mesaderegalos.liverpool.com.mx/",
+        "tipo": "primary"
+      },
+      {
+        "titulo": "Transferencia bancaria",
+        "descripcion": "Si lo prefieren, pueden apoyarnos de esta manera.",
+        "icono": "assets/img/icon-bank.png",
+        "boton": "Ver datos",
+        "url": "#",
+        "tipo": "modal"
+      },
+      {
+        "titulo": "Lluvia de sobres",
+        "descripcion": "También podrán acompañarnos con un sobre el día del evento.",
+        "icono": "assets/img/icon-envelope.png",
+        "boton": ""
+      }
+    ]
+  },
+
+  "galeria": [
+    "assets/img/foto1.png",
+    "assets/img/foto2.png",
+    "assets/img/foto3.png",
+    "assets/img/foto4.png"
+  ],
+
+  "rsvp": {
+    "fecha_limite": "15 de noviembre de 2026",
+    "telefono_whatsapp": "522212576641",
+    "mensaje_base": "Hola! Confirmo mi asistencia a la boda de Miguel y Melisa."
+  }
+}
