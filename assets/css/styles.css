@@ -726,7 +726,7 @@ body.locked {
   width: 100%;
   max-width: 520px;
   margin: -10px auto 18px;
-  font-size: 12px;
+  font-size: 16px;
   color: #777;
   letter-spacing: 0.5px;
 }
@@ -763,8 +763,8 @@ body.locked {
 
   cursor: pointer;
 
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
 
   display: flex;
   align-items: center;
@@ -1075,7 +1075,7 @@ body.locked {
   height: 380px;
   object-fit: cover;
   border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   transition: transform 0.4s ease;
 }
 
@@ -1094,11 +1094,11 @@ body.locked {
 }
 
 /* Contenedor opciones */
-.gift-options{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:35px;
-  margin-top:35px;
+.gift-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 35px;
+  margin-top: 35px;
 }
 
 /* Compacto */
@@ -1161,7 +1161,7 @@ MODAL
 
   opacity: 0;
   pointer-events: none;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 
   z-index: 4000;
 }
@@ -1174,7 +1174,7 @@ MODAL
 .modal-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(4px);
 }
 
@@ -1185,41 +1185,41 @@ MODAL
   padding: 45px 35px;
   border-radius: 10px;
   background: #fffdfb;
-  box-shadow: 0 30px 70px rgba(0,0,0,.25);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
 
-  animation: modalPop .35s ease;
+  animation: modalPop 0.35s ease;
 }
 
-@keyframes modalPop{
-  from{
-    transform: scale(.9) translateY(10px);
-    opacity:0;
+@keyframes modalPop {
+  from {
+    transform: scale(0.9) translateY(10px);
+    opacity: 0;
   }
-  to{
+  to {
     transform: scale(1) translateY(0);
-    opacity:1;
+    opacity: 1;
   }
 }
 
-.modal-close{
-  position:absolute;
-  top:15px;
-  right:18px;
-  border:none;
-  background:none;
-  font-size:20px;
-  cursor:pointer;
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-.bank-info{
-  margin:25px 0;
-  line-height:1.8;
-  font-size:16px;
+.bank-info {
+  margin: 25px 0;
+  line-height: 1.8;
+  font-size: 16px;
 }
 
-.bank-note{
-  font-size:14px;
-  color:#666;
+.bank-note {
+  font-size: 14px;
+  color: #666;
 }
 /* ==========================================
    RSVP SECTION – PREMIUM
@@ -1615,6 +1615,11 @@ MODAL
     font-size: 17px;
     line-height: 1.5;
     margin-bottom: 18px;
+  }
+
+  .music-svg-btn {
+    width: 180px;
+    height: 180px;
   }
 
   .parents {

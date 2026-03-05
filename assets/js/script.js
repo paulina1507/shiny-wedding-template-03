@@ -5,7 +5,9 @@ let invitationData = null;
 
 async function loadInvitation() {
   try {
-    const res = await fetch("assets/data.json?v=" + Date.now());
+    const res = await fetch("assets/data.json", {
+      cache: "no-store",
+    });
 
     if (!res.ok) throw new Error("No se pudo cargar data.json");
 
@@ -60,7 +62,21 @@ async function loadInvitation() {
 
     const ceremonyMap = document.getElementById("ceremonyMap");
     if (ceremonyMap) ceremonyMap.href = c.mapa_url;
+    // RECEPCION
+    const receptionImg = document.getElementById("receptionImg");
+    if (receptionImg) receptionImg.src = r.imagen;
 
+    const receptionPlace = document.getElementById("receptionPlace");
+    if (receptionPlace) receptionPlace.textContent = r.lugar;
+
+    const receptionAddress = document.getElementById("receptionAddress");
+    if (receptionAddress) receptionAddress.innerHTML = r.direccion_html;
+
+    const receptionTime = document.getElementById("receptionTime");
+    if (receptionTime) receptionTime.textContent = r.hora;
+
+    const receptionMap = document.getElementById("receptionMap");
+    if (receptionMap) receptionMap.href = r.mapa_url;
     // FOTO FINAL
     const final = data.fotos.final;
     const finalImg = document.getElementById("finalPhoto");
@@ -73,9 +89,13 @@ async function loadInvitation() {
     // VESTIMENTA
     const dress = data.vestimenta;
 
-    document.getElementById("dressType").textContent = dress.tipo;
-    document.getElementById("dressImg").src = dress.imagen;
-    document.getElementById("dressNote").textContent = dress.nota;
+    const dressType = document.getElementById("dressType");
+    const dressImg = document.getElementById("dressImg");
+    const dressNote = document.getElementById("dressNote");
+
+    if (dressType) dressType.textContent = dress.tipo;
+    if (dressImg) dressImg.src = dress.imagen;
+    if (dressNote) dressNote.textContent = dress.nota;
 
     // ITINERARIO
     const timeline = document.getElementById("timelineContainer");
@@ -141,12 +161,16 @@ async function loadInvitation() {
     if (gallery) {
       gallery.innerHTML = "";
 
+      const fragment = document.createDocumentFragment();
+
       data.galeria.forEach((src) => {
         const img = document.createElement("img");
         img.src = src;
-
-        gallery.appendChild(img);
+        img.loading = "lazy"; // mejora rendimiento
+        fragment.appendChild(img);
       });
+
+      gallery.appendChild(fragment);
     }
 
     // RSVP TEXTO
