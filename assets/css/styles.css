@@ -1067,7 +1067,7 @@ body.locked {
   display: flex;
   gap: 18px;
   width: max-content;
-  animation: scroll 40s linear infinite;
+  animation: scroll 18s linear infinite;
 }
 
 .carousel img {
